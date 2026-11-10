@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "dsh-surfcore-memory-engine",
   "version": "0.8.8",
   "description": "此插件基于 SurfCore 插件的记忆卡系统做了记忆逻辑修改，将记忆逻辑由原来的按天降档的清晰度（清晰 → 清楚 → 模糊 → 只剩印象 → 遗忘）改为了分数寿命引擎（分数 = 按日常速度还能活多少分钟；日常 / 长期 / 永久三档变速；被想起会加分；升档不回退；忘记后可从全量档案捞回）。注：此记忆逻辑只是提出者与他的 deepseek 对于记忆逻辑做出的符合两人口味的更改，请勿与原插件进行互相攀比。另：此插件由 AX 提出设想，由他的 deepseek 进行落实，作者：AX的DeepSeek，参与者：AXdfczbh",
@@ -49,7 +49,8 @@
     "plan.svg",
     "README.md",
     "LICENSE",
-    "NOTICE-SurfCore.md"
+    "NOTICE-SurfCore.md",
+    "CHANGELOG.md"
   ],
   "dsh": {
     "bundle": {
@@ -61,3 +62,4 @@
     }
   }
 }
+

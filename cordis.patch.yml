@@ -1,0 +1,3 @@
+- insert:
+    - id: memory-engine
+      name: 'dsh-surfcore-memory-engine'

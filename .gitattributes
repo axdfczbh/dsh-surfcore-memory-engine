@@ -1,0 +1,7 @@
+# 统一行尾：仓库里一律 LF，检出时按平台自动转换。
+# payload/ 下的文件会按 sha256 校验（已归一化 CRLF），保持 LF 最稳妥。
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary

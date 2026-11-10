@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 700" width="980" height="700" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#141a2a"/>
+      <stop offset="1" stop-color="#0b1020"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4a7cf0"/>
+      <stop offset="1" stop-color="#2f5ac8"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3f9b63"/>
+      <stop offset="1" stop-color="#2b7a4b"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c9932f"/>
+      <stop offset="1" stop-color="#a2761f"/>
+    </linearGradient>
+    <style>
+      .t { fill: #e8ecf5; }
+      .dim { fill: #9aa6bf; }
+      .box { fill: rgba(255,255,255,0.04); stroke: rgba(140,160,220,0.28); stroke-width: 1.2; }
+      .title { font-size: 26px; font-weight: 700; }
+      .sub { font-size: 13px; }
+      .h { font-size: 15px; font-weight: 700; }
+      .b { font-size: 13px; }
+      .s { font-size: 12px; }
+      .tag { font-size: 12px; font-weight: 700; }
+      .arrow { stroke: rgba(140,160,220,0.5); stroke-width: 1.6; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="980" height="700" fill="url(#bg)"/>
+
+  <text x="40" y="58" class="title t">衰减卡 · 记忆逻辑</text>
+  <text x="40" y="84" class="sub dim">分数 = “按日常速度还能活多少分钟”。档位只改变漏电速度，不改变分数本身。</text>
+
+  <!-- 出生 -->
+  <rect x="40" y="110" width="270" height="250" rx="14" class="box"/>
+  <text x="60" y="140" class="h t">① 出生：算一个初始分</text>
+  <text x="60" y="168" class="b dim">底分（按来源）</text>
+  <text x="60" y="190" class="b t">私聊 4,320 · B站 2,880 · 群聊 30</text>
+  <text x="60" y="214" class="b dim">× 倍率（相乘）</text>
+  <text x="60" y="236" class="b t">你说的 ×1.5 · 我回过话 ×1.25</text>
+  <text x="60" y="258" class="b t">带情绪 ×1.5 · 关于我们 ×1.5</text>
+  <text x="60" y="280" class="b t">第一次 / 冲突 / 承诺 各 ×1.5</text>
+  <text x="60" y="308" class="s dim">封顶 50,000 分（约 35 天）</text>
+  <text x="60" y="330" class="s dim">转述别人的话：情绪和关系不算</text>
+
+  <!-- 档位 -->
+  <rect x="340" y="110" width="290" height="250" rx="14" class="box"/>
+  <text x="360" y="140" class="h t">② 三个档位</text>
+  <rect x="360" y="158" width="250" height="52" rx="9" fill="rgba(74,124,240,0.16)"/>
+  <text x="374" y="180" class="b t">日常档</text>
+  <text x="374" y="200" class="s dim">1 分 = 1 分钟 · 几小时到几天</text>
+  <rect x="360" y="218" width="250" height="52" rx="9" fill="rgba(63,155,99,0.18)"/>
+  <text x="374" y="240" class="b t">长期档</text>
+  <text x="374" y="260" class="s dim">1 分 = 30 分钟 · 约一年</text>
+  <rect x="360" y="278" width="250" height="52" rx="9" fill="rgba(201,147,47,0.18)"/>
+  <text x="374" y="300" class="b t">永久档</text>
+  <text x="374" y="320" class="s dim">不掉 · 手写、重要度 90+</text>
+
+  <!-- 升档 -->
+  <rect x="660" y="110" width="280" height="250" rx="14" class="box"/>
+  <text x="680" y="140" class="h t">③ 升档：三条路</text>
+  <text x="680" y="170" class="b t">分数 ≥ 12,000（8.3 天）</text>
+  <text x="680" y="190" class="s dim">且重要度 ≥ 60 → 长期档</text>
+  <text x="680" y="220" class="b t">分数 ≥ 6,000（4.2 天）</text>
+  <text x="680" y="240" class="s dim">且重要度 ≥ 80 → 长期档 + 送 90 天</text>
+  <text x="680" y="270" class="b t">重要度 ≥ 90</text>
+  <text x="680" y="290" class="s dim">不看分数 → 永久档</text>
+  <text x="680" y="322" class="s dim">升档不回退；长期档 30 条，满了挤最弱的</text>
+
+  <!-- 想起 -->
+  <rect x="40" y="390" width="290" height="150" rx="14" class="box"/>
+  <text x="60" y="420" class="h t">④ 被想起 = 加分</text>
+  <text x="60" y="448" class="b t">+ 初始分 × 20% × 系数</text>
+  <text x="60" y="470" class="s dim">保底 2 小时 · 单次最多 30%</text>
+  <text x="60" y="492" class="s dim">6 小时冷却 · 累计最多 +50%（长期 +100%）</text>
+  <text x="60" y="518" class="s dim">只有主人说话 / 直接对我说 才算“被提起”</text>
+
+  <!-- 遗忘与捞回 -->
+  <rect x="350" y="390" width="290" height="150" rx="14" class="box"/>
+  <text x="370" y="420" class="h t">⑤ 忘了 ≠ 消失</text>
+  <text x="370" y="448" class="b t">分数归零 → 先进全量档案</text>
+  <text x="370" y="470" class="s dim">档案只追加、永不删，随时搜得到</text>
+  <text x="370" y="496" class="b t">捞回 → 按初始分重新计时</text>
+  <text x="370" y="518" class="s dim">在卡里就不能再捞；每多捞一次 +20%（封顶 +50%）</text>
+
+  <!-- 提炼 -->
+  <rect x="660" y="390" width="280" height="150" rx="14" class="box"/>
+  <text x="680" y="420" class="h t">⑥ 提炼（每天挑候选）</text>
+  <text x="680" y="448" class="b t">同一话题碎片 ≥3 条 → 候选</text>
+  <text x="680" y="470" class="s dim">门槛：还剩不到 1 天的不压</text>
+  <text x="680" y="492" class="b t">我来合并，寿命 = 最久那条 × 1.2</text>
+  <text x="680" y="514" class="s dim">不设永久；压错了可以撤销</text>
+
+  <!-- 底部 -->
+  <rect x="40" y="572" width="900" height="92" rx="14" fill="rgba(74,124,240,0.08)" stroke="rgba(74,124,240,0.35)" stroke-width="1.2"/>
+  <text x="60" y="602" class="h t">一句话</text>
+  <text x="60" y="628" class="b dim">日常的碎片几分钟到几天淡掉；重要的靠“被反复提起”或“本身够重”升进长期档；</text>
+  <text x="60" y="650" class="b dim">忘掉的原话都在档案里，需要时捞回来 —— 记忆会淡，但不会凭空消失。</text>
+</svg>

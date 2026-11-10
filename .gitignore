@@ -1,0 +1,9 @@
+node_modules/
+*.log
+*.zip
+.DS_Store
+
+# 开发产物
+icon-candidates/
+gui-bundle.js
+icon.png

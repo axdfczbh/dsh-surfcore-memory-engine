@@ -1,0 +1,23 @@
+{
+  "version": "0.8.8",
+  "commit": "0deb826",
+  "original": {
+    "src/memory-card.js": "ce7764273c8f10480ce6d9f7238aaad95050b4085a6514078f00fdbb1ad5af7b",
+    "plugins/surfcore/lib/memory-card.js": "c837c766bf3b58088364d5526daaa6d6fdb6d693c9cacd63baf25ff6a27ae51f"
+  },
+  "patched": {
+    "src/memory-card.js": "f858988df7d2c96a6c2c50f06e4367baf1d387c1cac6e48ae14665f2fd093707",
+    "src/decay-v2.js": "e45f7a36ec6a6075b28fd9f1537866b0a63c5081b7d9a1b461c01b9ab1f2afc4",
+    "plugins/surfcore/lib/memory-card.js": "5d4adf4b9cf04d514ffd36ac000f013e44aa8fa0e85fd9912fe352b3aede2c8f"
+  },
+  "previousPatched": {
+    "src/decay-v2.js": [
+      "c48f6661e51c98789acb3ae03fcb3e9e0d37dbef98dd518b09ae832acc39e3ce",
+      "89b76ec2374a07ad46e2c07235e7cdee37f973fb080c7c0f5d40ac947bc458aa",
+      "2e4c5b0ca6f4410b057857727183fcc6a13a0fd98c5ca6be7f106c440c54b88d"
+    ],
+    "src/memory-card.js": [
+      "6773259380f717ac23f83edaa1f5c8acc9a190c120d6ce66cb2d3272a6a539a9"
+    ]
+  }
+}

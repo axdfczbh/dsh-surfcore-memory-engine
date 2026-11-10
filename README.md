@@ -41,7 +41,7 @@
 
 | 分组 | 内容 |
 | --- | --- |
-| 底分（按来源） | 私聊·主人 / 私聊·我自己 / 桌宠·主人 / 桌宠·我自己 / B站·视频 / B站·动态 / 群聊 |
+| 底分（按来源） | 私聊·用户 / 私聊·我自己 / 桌宠·用户 / 桌宠·我自己 / B站·视频 / B站·动态 / 群聊 |
 | 流速 · 上限 | 日常档流速、长期档流速、初始分封顶、最久时长上限 |
 | 升档门槛 · 赠送 · 名额 | 两条升档路的分数与重要度、赠送天数、永久线、长期档名额 |
 | 加权倍率 | 你亲口说的、我回过话、带情绪、关于我们、第一次、冲突、承诺 |
@@ -131,4 +131,5 @@ Groups: base scores by source, decay rates and caps, promotion thresholds / bonu
 ## License
 
 MIT. This package contains modified files from SurfCore, which is also MIT — see [NOTICE-SurfCore.md](NOTICE-SurfCore.md) for the original copyright notice.
+
 

@@ -1,4 +1,4 @@
-// 记忆引擎（memory-engine）· Host 半边
+﻿// 记忆引擎（memory-engine）· Host 半边
 //
 // 只做一件事：把 SurfCore 的记忆逻辑升级成 v2（分数引擎）。
 // 流程：定位 → 校验 → 试运行 → 应用 / 回滚。给设置页提供四个接口。
@@ -6,17 +6,19 @@
 // 安全边界：
 //   · 只认已知版本（keys.json），对不上就拒绝；
 //   · 写之前先解析配置、先备份；任何一步失败自动整体还原；
-//   · 不碰 SurfCore 其他功能，只改记忆那三个文件和 engine 开关。
+//   · 不碰 SurfCore 其他功能，只改记忆那三个文件和 engine 开关；
+//   · 所有接口先过 ctx.connection.admit()，只接受已认证的 GUI 连接；
+//   · 目标只能是 DSH 已安装的那份 SurfCore（路径由 profile 依赖推导）。
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { apply as applyPatch, locate, rollback, verify } from './lib/patcher.mjs';
+import { apply as applyPatch, canonicalRoot, locate, rollback, verify } from './lib/patcher.mjs';
 import { BASE_CONFIG, OVERRIDE_FILE, sanitizeOverride } from './payload/src/decay-v2.js';
 
 const PLAN_SVG = fs.readFileSync(new URL('./plan.svg', import.meta.url), 'utf8');
 
 export const name = 'memory-engine';
-export const inject = ['webServer'];
+export const inject = ['webServer']; // connection 按请求取（ctx.get），没注入也 fail-closed
 
 export function apply(ctx, config) {
   const row = config ?? {};
@@ -35,6 +37,45 @@ export function apply(ctx, config) {
     res.setHeader('cache-control', 'no-store');
     res.end(JSON.stringify(value));
   };
+
+  /**
+   * 宿主认证：只让带有效浏览器/API 凭据的请求进来。
+   * 失败一律关闭（没有 connection 服务时也拒绝），不做“没认证就放行”的降级。
+   */
+  const admit = (req, res) => {
+    const connection = ctx.get('connection');
+    if (!connection || typeof connection.admit !== 'function') {
+      json(res, 503, { ok: false, error: '宿主认证不可用（缺少 connection 服务）' });
+      return false;
+    }
+    let admission;
+    try {
+      admission = connection.admit({ headers: req.headers });
+    } catch {
+      json(res, 403, { ok: false, error: '认证失败' });
+      return false;
+    }
+    if (!admission || typeof admission !== 'object' || 'rejection' in admission) {
+      const code = Number(admission?.rejection) || 401;
+      json(res, code, { ok: false, error: '未通过宿主认证' });
+      return false;
+    }
+    return true;
+  };
+
+
+  /** 统一注册：所有路由先过宿主认证，再进业务处理。 */
+  const register = (route) => webServer.register({
+    ...route,
+    handler: async (req, res) => {
+      if (!admit(req, res)) return;
+      try {
+        await route.handler(req, res);
+      } catch (error) {
+        try { json(res, 500, { ok: false, error: String(error?.message ?? error) }); } catch {}
+      }
+    },
+  });
 
   const readBody = (req) => new Promise((resolve, reject) => {
     let size = 0;
@@ -72,13 +113,13 @@ export function apply(ctx, config) {
     version: lastVerify?.keys?.version ?? '',
   });
 
-  ctx.effect(() => webServer.register({
+  ctx.effect(() => register({
     kind: 'exact',
     path: '/api/memory-engine/status',
     handler: (_req, res) => json(res, 200, statusPayload()),
   }));
 
-  ctx.effect(() => webServer.register({
+  ctx.effect(() => register({
     kind: 'exact',
     path: '/api/memory-engine/locate',
     handler: async (req, res) => {
@@ -95,7 +136,7 @@ export function apply(ctx, config) {
     },
   }));
 
-  ctx.effect(() => webServer.register({
+  ctx.effect(() => register({
     kind: 'exact',
     path: '/api/memory-engine/verify',
     handler: async (_req, res) => {
@@ -110,7 +151,7 @@ export function apply(ctx, config) {
     },
   }));
 
-  ctx.effect(() => webServer.register({
+  ctx.effect(() => register({
     kind: 'exact',
     path: '/api/memory-engine/apply',
     handler: async (req, res) => {
@@ -129,7 +170,7 @@ export function apply(ctx, config) {
     },
   }));
 
-  ctx.effect(() => webServer.register({
+  ctx.effect(() => register({
     kind: 'exact',
     path: '/api/memory-engine/rollback',
     handler: async (_req, res) => {
@@ -153,7 +194,7 @@ export function apply(ctx, config) {
     },
   }));
 
-  ctx.effect(() => webServer.register({
+  ctx.effect(() => register({
     kind: 'exact',
     path: '/api/memory-engine/plan.svg',
     handler: (_req, res) => {
@@ -168,7 +209,7 @@ export function apply(ctx, config) {
     Object.entries(BASE_CONFIG.base).filter(([, value]) => Number.isFinite(value)),
   );
 
-  ctx.effect(() => webServer.register({
+  ctx.effect(() => register({
     kind: 'exact',
     path: '/api/memory-engine/tuning',
     handler: async (req, res) => {
@@ -210,4 +251,6 @@ export function apply(ctx, config) {
 
   console.log('[memory-engine] 已挂上 6 个接口（status/locate/verify/apply/rollback/tuning）');
 }
+
+
 

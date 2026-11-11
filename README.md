@@ -28,7 +28,7 @@
 
 ## 使用
 
-1. **定位**：点「自动定位」，它会从 DSH 的 profile 依赖里找 SurfCore；找不到时点「手动指定」，填**仓库根目录**（有 `src/memory-card.js` 的那一层，不是 `plugins/surfcore`）。
+1. **定位**：点「自动定位」，它会从 DSH 的 profile 依赖里找 SurfCore；找不到时点「手动指定」——但只接受**DSH 已安装的那份 SurfCore**，填别处会被拒绝。
 2. **校验**（必须）：逐项检查版本、文件指纹、写权限、引擎开关。**每次启动 DSH 后都要重新校验**，不点的话应用 / 回滚 / 改数值全是灰的。
 3. **应用**：自动备份 → 写入三个文件 → 把配置里的 `memoryCard.engine` 切成 `v2`。之后**重启 DSH** 生效。
 4. **回滚**：从备份还原，随时可退。
@@ -57,6 +57,8 @@
 - SurfCore 升级到新版本后，本插件需要重新适配——版本对不上时「校验」会明确说 `版本已适配 ✗`，并拒绝应用。
 
 ## 安全边界
+- **宿主认证**：所有接口先过 DSH 的 `ctx.connection.admit()`，未认证请求一律拒绝（401/403）；没有 connection 服务时直接拒绝（503），不降级放行；
+- **目标路径**：只能改 DSH 已安装的那份 SurfCore（由 profile 依赖推导）；手动指定必须与自动定位结果一致，指向其他目录会被拒绝；
 
 - 只改三个文件：`src/decay-v2.js`（新增）、`src/memory-card.js`、`plugins/surfcore/lib/memory-card.js`，外加配置里的一个开关；
 - 写之前先备份到 `<SurfCore>/.memlogic-backup/<时间戳>/`；
@@ -131,5 +133,7 @@ Groups: base scores by source, decay rates and caps, promotion thresholds / bonu
 ## License
 
 MIT. This package contains modified files from SurfCore, which is also MIT — see [NOTICE-SurfCore.md](NOTICE-SurfCore.md) for the original copyright notice.
+
+
 
 

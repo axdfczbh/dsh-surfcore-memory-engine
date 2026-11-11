@@ -53,7 +53,7 @@
 
 ## 适配版本
 
-- 只支持 **SurfCore 0.8.8**，本插件版本号与 SurfCore 保持一致（同为 `0.8.8`）。
+- 只支持 **SurfCore 0.8.8**；插件版本对准 SurfCore，补丁用预发布后缀（如 `0.8.8-1` 是 0.8.8 的安全加固版）。
 - SurfCore 升级到新版本后，本插件需要重新适配——版本对不上时「校验」会明确说 `版本已适配 ✗`，并拒绝应用。
 
 ## 安全边界
@@ -133,6 +133,7 @@ Groups: base scores by source, decay rates and caps, promotion thresholds / bonu
 ## License
 
 MIT. This package contains modified files from SurfCore, which is also MIT — see [NOTICE-SurfCore.md](NOTICE-SurfCore.md) for the original copyright notice.
+
 
 
 
